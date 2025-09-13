@@ -1,6 +1,7 @@
 package com.example.chatserver.member.service;
 
 import com.example.chatserver.member.domain.Member;
+import com.example.chatserver.member.dto.MemberListReqDto;
 import com.example.chatserver.member.dto.MemberLoginReqDto;
 import com.example.chatserver.member.dto.MemberSaveReqDto;
 import com.example.chatserver.member.repository.MemberRepository;
@@ -8,6 +9,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,5 +47,20 @@ public class MemberService {
         }
 
         return member;
+    }
+
+    public List<MemberListReqDto> findAll(){
+        List<Member> members = memberRepository.findAll();
+        List<MemberListReqDto> memberListReqDtos = new ArrayList<>();
+
+        for(Member m : members){
+            MemberListReqDto memberListReqDto = new MemberListReqDto();
+            memberListReqDto.setId(m.getId());
+            memberListReqDto.setEmail(m.getEmail());
+            memberListReqDto.setName(m.getName());
+            memberListReqDtos.add(memberListReqDto);
+        }
+
+        return memberListReqDtos;
     }
 }

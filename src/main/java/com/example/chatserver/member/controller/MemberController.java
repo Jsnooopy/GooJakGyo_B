@@ -7,6 +7,7 @@ import com.example.chatserver.member.dto.MemberListReqDto;
 import com.example.chatserver.member.dto.MemberLoginReqDto;
 import com.example.chatserver.member.dto.MemberSaveReqDto;
 import com.example.chatserver.member.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,13 @@ public class MemberController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> memberCreate(@RequestBody MemberSaveReqDto memberSaveReqDto) {
+    public ResponseEntity<?> memberCreate(@Valid @RequestBody MemberSaveReqDto memberSaveReqDto) {
         Member member = memberService.create(memberSaveReqDto);
         return new ResponseEntity<>(member.getId(), HttpStatus.CREATED);
     }
 
     @PostMapping("/doLogin")
-    public ResponseEntity<?> doLogin(@RequestBody MemberLoginReqDto memberLoginReqDto){
+    public ResponseEntity<?> doLogin(@Valid @RequestBody MemberLoginReqDto memberLoginReqDto){
         // email, password 검증
         Member member = memberService.login(memberLoginReqDto);
         // 일치할 경우 access 토큰 발행

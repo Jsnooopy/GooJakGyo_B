@@ -235,6 +235,7 @@ public class ChatService {
         addParticipantToRoom(newRoom, member);
         addParticipantToRoom(newRoom, otherMember);
 
+
         return newRoom.getId();
     }
 }

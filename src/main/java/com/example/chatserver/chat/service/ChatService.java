@@ -169,6 +169,7 @@ public class ChatService {
                 return true;
             }
         }
+
         return false;
     }
 
